@@ -63,4 +63,17 @@ public class ShareLaneTest {
         driver.findElement(By.xpath("//*[@value='Continue']")).click();
         driver.findElement(By.xpath("//*[@value='Register']")).click();
     }
+
+    @Test
+    public void fillInZipCodeFieldWithEmptyDataTest4() {
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://www.sharelane.com/cgi-bin/register.py");
+        driver.findElement(By.name("zip_code")).sendKeys("444444");
+        driver.findElement(By.xpath("//*[@value='Continue']")).click();
+        driver.findElement(By.xpath("//*[@value='Register']")).click();
+        String text = driver.findElement(By.xpath("//*[@value='error_message']")).getText();
+        Assert.assertEquals(text, "Oops, error on page. Some of your fields have invalid data or email was previously used");
+        driver.quit();
+    }
 }
